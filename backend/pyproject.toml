@@ -5,7 +5,6 @@ description = "FHIR API for healthcare data"
 authors = ["Ascertain"]
 readme = "README.md"
 packages = [{include = "*.py"}]
-requires-python = "^3.11"
 
 [tool.poetry.dependencies]
 python = "^3.11"
