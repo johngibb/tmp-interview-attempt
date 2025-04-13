@@ -83,9 +83,13 @@ async def get_patient_details(patient_id: str) -> Patient | None:
         return mapped_patient
     
     
+## Example of how to access querystring from https://fastapi.tiangolo.com/tutorial/query-params/#defaults
+##
+## @app.get("/items/{item_id}")
+## async def read_item(item_id: str, q: str | None = None): 
 
 @app.get("/patients/", response_model=list[Patient], tags=["Patients"])
-async def list_patients() -> list[Patient]:
+async def list_patients(name: str | None = None) -> list[Patient]:
     """
     Get all patients.
     """
@@ -108,6 +112,9 @@ async def list_patients() -> list[Patient]:
             "birth_date": p.get("birthDate", "")
         }
         mapped_patients.append(mapped_patient)
+
+    if name:
+        mapped_patients = [p for p in mapped_patients if name.lower() in p["full_name"].lower()]
     
     return mapped_patients
 
